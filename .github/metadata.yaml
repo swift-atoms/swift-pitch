@@ -1,0 +1,9 @@
+description: "Musical pitch for Swift: pitch classes, pitches in octaves, scales, and their frequencies in twelve-tone equal temperament."
+topics:
+  - primitives
+  - pitch
+  - music
+  - tuning
+homepage: "https://swift-institute.org"
+readme:
+  family: E
