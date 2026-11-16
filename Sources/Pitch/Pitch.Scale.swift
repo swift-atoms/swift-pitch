@@ -10,7 +10,7 @@ extension Pitch {
         /// The scale of these classes, in order up from C, each once however often it is given. Fails with `.empty`
         /// for no classes.
         @inlinable
-        public init(_ classes: some Sequence<Class>) throws(Error) {
+        public init(_ classes: some Swift.Sequence<Class>) throws(Error) {
             let distinct = Set(classes).sorted()
             guard !distinct.isEmpty else { throw .empty }
             self.classes = distinct
@@ -19,11 +19,6 @@ extension Pitch {
 }
 
 extension Pitch.Scale {
-    public enum Error: Swift.Error, Hashable, Sendable {
-        /// A scale of no classes.
-        case empty
-    }
-
     /// The pitch at `degree` of the scale counted from its lowest class in `octave`.
     @inlinable
     public func pitch(at degree: Int, from octave: Int) -> Pitch {

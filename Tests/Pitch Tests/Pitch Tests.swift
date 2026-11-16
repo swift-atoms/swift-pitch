@@ -54,7 +54,7 @@ struct `Pitch Tests` {
     @Test
     func `Another tuning moves every pitch by the same ratio`() throws {
         let baroque = try Pitch.Tuning(Pitch(.a, octave: 4), at: 415)
-        for semitones in -12...12 {
+        (-12...12).forEach { semitones in
             let pitch = Pitch(.a, octave: 4).transposed(by: semitones)
             #expect(abs(pitch.frequency(in: baroque) / pitch.frequency() - 415.0 / 440) < 1e-12)
         }
