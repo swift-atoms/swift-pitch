@@ -4,6 +4,8 @@ Use this package when you need musical pitch as a value: which note a sound is, 
 
 ## Laws
 
+- A frequency is a `Frequency.Value<Double>` of swift-frequency, a quantity in hertz, which this package re-exports: a tuning's reference frequency and `frequency(in:)` both are one.
+
 - A class is its semitones above C counted round the octave: `Pitch.Class(12)` is C and `Pitch.Class(-1)` is B. Its `semitones` lie in 0 to 11, and the classes order up from C.
 - A pitch's `semitones` count from C in octave 0, twelve to the octave; the octave goes up at each C, so B in octave 3 is one semitone under middle C. `Pitch(semitones:)` is its inverse for every whole number, negative ones included, and `transposed(by:)` is moving that count.
 - `frequency(in:)` is the tuning's frequency times 2 to the power of the semitones from the tuning's reference over 12: an octave doubles it, each semitone multiplies it by the twelfth root of two, and changing the reference frequency scales every pitch by the same ratio. A tuning's frequency is positive and finite, or `Pitch.Tuning(_:at:)` fails with `.frequency`.

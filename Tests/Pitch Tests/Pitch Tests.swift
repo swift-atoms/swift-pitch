@@ -34,9 +34,9 @@ struct `Pitch Tests` {
 
     @Test
     func `A in octave 4 is 440 cycles a second in the standard tuning`() {
-        #expect(Pitch(.a, octave: 4).frequency() == 440)
-        #expect(Pitch(.a, octave: 5).frequency() == 880)
-        #expect(Pitch(.a, octave: 3).frequency() == 220)
+        #expect(Pitch(.a, octave: 4).frequency() == Frequency.hertz(440))
+        #expect(Pitch(.a, octave: 5).frequency() == Frequency.hertz(880))
+        #expect(Pitch(.a, octave: 3).frequency() == Frequency.hertz(220))
     }
 
     @Test(arguments: -24...24)
@@ -48,18 +48,18 @@ struct `Pitch Tests` {
 
     @Test
     func `Middle C in the standard tuning is about 261.63 cycles a second`() {
-        #expect(abs(Pitch(.c, octave: 4).frequency() - 261.625_565_300_598_6) < 1e-9)
+        #expect(abs(Pitch(.c, octave: 4).frequency().underlying - 261.625_565_300_598_6) < 1e-9)
     }
 
     @Test
     func `Another tuning moves every pitch by the same ratio`() throws {
-        let baroque = try Pitch.Tuning(Pitch(.a, octave: 4), at: 415)
+        let baroque = try Pitch.Tuning(Pitch(.a, octave: 4), at: Frequency.hertz(415))
         (-12...12).forEach { semitones in
             let pitch = Pitch(.a, octave: 4).transposed(by: semitones)
             #expect(abs(pitch.frequency(in: baroque) / pitch.frequency() - 415.0 / 440) < 1e-12)
         }
-        #expect(throws: Pitch.Tuning.Error.frequency) { try Pitch.Tuning(Pitch(.a, octave: 4), at: 0) }
-        #expect(throws: Pitch.Tuning.Error.frequency) { try Pitch.Tuning(Pitch(.a, octave: 4), at: .infinity) }
+        #expect(throws: Pitch.Tuning.Error.frequency) { try Pitch.Tuning(Pitch(.a, octave: 4), at: Frequency.hertz(0)) }
+        #expect(throws: Pitch.Tuning.Error.frequency) { try Pitch.Tuning(Pitch(.a, octave: 4), at: Frequency.hertz(.infinity)) }
     }
 
     @Test

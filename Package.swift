@@ -6,13 +6,15 @@ let package = Package(
     platforms: [.macOS(.v27), .iOS(.v27), .tvOS(.v27), .watchOS(.v27), .visionOS(.v27)],
     products: [.library(name: "Pitch", targets: ["Pitch"])],
     dependencies: [
-        .package(url: "https://github.com/swift-atoms/swift-numeric.git", branch: "main")
+        .package(url: "https://github.com/swift-atoms/swift-frequency.git", branch: "main"),
+        .package(url: "https://github.com/swift-atoms/swift-numeric.git", branch: "main"),
     ],
     targets: [
         .target(
             name: "Pitch",
             dependencies: [
-                .product(name: "Numeric", package: "swift-numeric")
+                .product(name: "Frequency", package: "swift-frequency"),
+                .product(name: "Numeric", package: "swift-numeric"),
             ]
         ),
         .testTarget(
