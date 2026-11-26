@@ -31,11 +31,20 @@ extension Pitch.Tuning {
     }()
 }
 
+extension Pitch.Tuning {
+    /// The frequency ratio of an interval of `semitones`, below one for a negative number: two to the power of the
+    /// semitones over twelve, so twelve semitones double a frequency and five, a fourth, multiply it by about 1.335.
+    @inlinable
+    public static func ratio(semitones: Int) -> Double {
+        Double.math.pow(2, Double(semitones) / 12)
+    }
+}
+
 extension Pitch {
     /// The pitch's frequency in `tuning`: the reference frequency times two to the power of the semitones from the
     /// reference over twelve.
     @inlinable
     public func frequency(in tuning: Tuning = .standard) -> Frequency.Value<Double> {
-        tuning.frequency * Double.math.pow(2, Double(semitones(from: tuning.reference)) / 12)
+        tuning.frequency * Tuning.ratio(semitones: semitones(from: tuning.reference))
     }
 }

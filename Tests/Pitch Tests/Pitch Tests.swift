@@ -46,6 +46,22 @@ struct `Pitch Tests` {
         #expect(abs(ratio - 1.059_463_094_359_295_3) < 1e-12)
     }
 
+    @Test(arguments: -24...24)
+    func `An interval's ratio is two to its semitones over twelve, the ratio of its two pitches' frequencies`(semitones: Int) {
+        let low = Pitch(.c, octave: 4)
+        let ratio = low.transposed(by: semitones).frequency() / low.frequency()
+        #expect(abs(Pitch.Tuning.ratio(semitones: semitones) - ratio) < 1e-12)
+        #expect(abs(Pitch.Tuning.ratio(semitones: semitones) * Pitch.Tuning.ratio(semitones: -semitones) - 1) < 1e-12)
+    }
+
+    @Test
+    func `An octave doubles a frequency and a fourth multiplies it by about 1.335`() {
+        #expect(Pitch.Tuning.ratio(semitones: 0) == 1)
+        #expect(Pitch.Tuning.ratio(semitones: 12) == 2)
+        #expect(Pitch.Tuning.ratio(semitones: -12) == 0.5)
+        #expect(abs(Pitch.Tuning.ratio(semitones: 5) - 1.334_839_854_170_034_4) < 1e-12)
+    }
+
     @Test
     func `Middle C in the standard tuning is about 261.63 cycles a second`() {
         #expect(abs(Pitch(.c, octave: 4).frequency().underlying - 261.625_565_300_598_6) < 1e-9)
